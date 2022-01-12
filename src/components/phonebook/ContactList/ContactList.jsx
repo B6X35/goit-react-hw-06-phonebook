@@ -1,11 +1,11 @@
 import ContactItem from "./ContactItem";
 import { useDispatch, useSelector } from "react-redux";
-import { removePhone } from "../redux/phonebook/phoneAction";
+import { removePhone } from "../../../redux/phonebook/phoneAction";
 import { memo } from "react";
 const ContactList = () => {
   const dispatch = useDispatch();
-  const phones = useSelector((state) => state.phoneReducer);
-  const filter = useSelector((state) => state.filterReducer);
+  const phones = useSelector((state) => state.phone);
+  const filter = useSelector((state) => state.filter);
   const removePhones = (id) => dispatch(removePhone(id));
 
   const getItems = () => {

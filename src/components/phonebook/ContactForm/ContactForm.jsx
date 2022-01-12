@@ -1,10 +1,11 @@
 import { useState, memo } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import style from "./ContactForm.module.css";
-import { addPhone } from "../redux/phonebook/phoneAction";
+import { addPhone } from "../../../redux/phonebook/phoneAction";
 
 function ContactForm( ) {
   const dispatch = useDispatch();
+  const phoneSelector = useSelector((state) => state.phone)
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
 
@@ -12,6 +13,10 @@ function ContactForm( ) {
     e.preventDefault();
     const phone = { name, number };
     console.log(addPhone(phone))
+    const isNamePhone = phoneSelector.some( e => e.name.toLowerCase() === name.toLowerCase())
+    if (isNamePhone) {
+      return alert(`${name} is already in contacts.`);
+    }
     dispatch(addPhone(phone));
     setName('');
     setNumber('')
@@ -19,16 +24,16 @@ function ContactForm( ) {
 
   const handleChange = ({ target }) => {
     const { name, value } = target;
-    switch (name) {
-      case 'name':
-        setName(value);
-        return;
-      case 'number':
-        setNumber(value);
-        return;
-      default:
-        return;
-    }
+      switch (name) {
+        case 'name':
+          setName(value);
+          return;
+        case 'number':
+          setNumber(value);
+          return;
+        default:
+          return;
+      }
   };
 
   return (

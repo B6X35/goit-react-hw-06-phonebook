@@ -5,6 +5,7 @@ const phoneReducer = createReducer([], {
     [addPhone]: (state, { payload }) => {
         const newPhone = [...state, payload];
         return newPhone;
+
     },
     [removePhone]: (state, { payload }) => {
         const newPhone = state.filter(({ id }) => id !== payload)
